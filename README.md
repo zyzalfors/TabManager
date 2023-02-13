@@ -7,6 +7,6 @@ close:regex            Close open tabs filtered by regex
 save:regex             Store urls of open tabs filtered by regex
 delete:regex           Delete stored urls filtered by regex
 open:regex             Open new tabs with stored urls filtered by regex
-export js:regex        Export stored urls in json format
-export csv:regex       Export stored urls in csv format
+export js:regex        Export stored urls filtered by regex in json format
+export csv:regex       Export stored urls filtered by regex in csv format
 ```
