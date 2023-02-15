@@ -1,6 +1,6 @@
-function encodeURL(url)
+function encode(text)
 {
- return url.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt");
+ return text.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 chrome.omnibox.onInputChanged.addListener((text, showSuggestions) => {
@@ -18,16 +18,16 @@ chrome.omnibox.onInputChanged.addListener((text, showSuggestions) => {
     if(regex.test(tab.url) || regex.test(tab.title))
     {
      ids.push(tab.index);
-     urls.push(encodeURL(tab.url));
+     urls.push(tab.url);
      titles.push(tab.title);
-     let obj = {cmd: cmd, ids: [tab.index], titles: [tab.title], urls: [encodeURL(tab.url)]};
-     suggestions.push({content: JSON.stringify(obj, null, 0), description: cmd + " " + tab.title + " - " + obj.urls[0]});
+     let obj = {cmd: cmd, ids: [tab.index], titles: [tab.title], urls: [tab.url]};
+     suggestions.push({content: JSON.stringify(obj, null, 0), description: cmd + " " + encode(tab.title) + " - " + encode(tab.url)});
     }
    }
    if(/(save|close):/i.test(cmd) && urls.length > 1)
    {
     let obj = {cmd: cmd, ids: ids, titles: titles, urls: urls};
-    suggestions.push({content: JSON.stringify(obj, null, 0), description: cmd + " all filtered"});
+    suggestions.unshift({content: JSON.stringify(obj, null, 0), description: cmd + " all filtered"});
    }
    showSuggestions(suggestions);
   }
@@ -45,13 +45,13 @@ chrome.omnibox.onInputChanged.addListener((text, showSuggestions) => {
        urls.push(url);
        titles.push(title);
        let obj = {cmd: cmd, ids: [], titles: [title], urls: [url]};
-       suggestions.push({content: JSON.stringify(obj, null, 0), description: cmd + " " + title + " - " + url});
+       suggestions.push({content: JSON.stringify(obj, null, 0), description: cmd + " " + encode(title) + " - " + encode(url)});
       }
      }
      if(urls.length > 1)
      {
       let obj = {cmd: cmd, ids: [], titles: titles, urls: urls};
-      suggestions.push({content: JSON.stringify(obj, null, 0), description: cmd + " all filtered"});
+      suggestions.unshift({content: JSON.stringify(obj, null, 0), description: cmd + " all filtered"});
      }
      showSuggestions(suggestions);
     }
