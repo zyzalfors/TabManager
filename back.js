@@ -98,7 +98,7 @@ chrome.omnibox.onInputEntered.addListener((content, disposition) => {
  }
  else if(/export csv:/i.test(cmd))
  {
-  let csv = ["url,title"];
+  let csv = ["title,url"];
   for(let i = 0; i < urls.length; i++)
   {
    csv.push("\"" + titles[i] + "\",\"" + urls[i] + "\"");
