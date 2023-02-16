@@ -1,6 +1,6 @@
 function encode(text)
 {
- return text.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+ return text.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/'/g, "&apos;");
 }
 
 chrome.omnibox.onInputChanged.addListener((text, showSuggestions) => {
@@ -90,7 +90,7 @@ chrome.omnibox.onInputEntered.addListener((content, disposition) => {
  else if(/export json:/i.test(cmd))
  {
   chrome.downloads.download({
-   url: "data:text/plain," + JSON.stringify({titles: titles, urls: urls}, null, 1),
+   url: "data:text/plain," + encodeURIComponent(JSON.stringify({titles: titles, urls: urls}, null, 1)),
    filename: "tabs.txt",
    conflictAction: "uniquify",
    saveAs: true
@@ -104,7 +104,7 @@ chrome.omnibox.onInputEntered.addListener((content, disposition) => {
    csv.push("\"" + titles[i] + "\",\"" + urls[i] + "\"");
   }
   chrome.downloads.download({
-   url: "data:text/plain," + csv.join("\n"),
+   url: "data:text/plain," + encodeURIComponent(csv.join("\n")),
    filename: "tabs.txt",
    conflictAction: "uniquify",
    saveAs: true
