@@ -1,6 +1,6 @@
 # Tab Manager
 
-Tab Manager is a Chrome/Edge extension that manages and stores browser tabs and relative URLs through omnibox commands in address bar.
+This Chrome/Edge extension manages and stores browser tabs and relative URLs through omnibox commands in address bar.
 Type "tab" and press TAB to enter commands, then click a suggestion:
 ```
 Command                Usage
