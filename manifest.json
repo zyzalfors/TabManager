@@ -1,0 +1,8 @@
+{
+ "manifest_version": 3,
+ "name": "Tabs Manager",
+ "version": "1.0",
+ "permissions": ["tabs", "downloads", "storage", "unlimitedStorage"],
+ "background": {"service_worker": "back.js"},
+ "omnibox": {"keyword" : "tab"}
+}
